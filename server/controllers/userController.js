@@ -46,8 +46,15 @@ module.exports.getAllUsers = async (req, res, next) => {
       "username",
       "avatarImage",
       "_id",
+      "status",
     ]);
-    return res.json(users);
+    // Update status based on onlineUsers
+    const updatedUsers = users.map(user => {
+      const isOnline = global.onlineUsers.has(user._id.toString());
+      user.status = isOnline ? "online" : "offline";
+      return user;
+    });
+    return res.json(updatedUsers);
   } catch (ex) {
     next(ex);
   }

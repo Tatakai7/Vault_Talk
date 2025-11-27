@@ -27,6 +27,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  status: {
+    type: String,
+    enum: ["online", "offline"],
+    default: "offline",
+  },
 });
 
 module.exports = mongoose.model("Users", userSchema);

@@ -48,6 +48,7 @@ export default function Contacts({ contacts, changeChat }) {
                       src={`data:image/svg+xml;base64,${contact.avatarImage}`}
                       alt=""
                     />
+                    {contact.status === "online" && <div className="online-indicator"></div>}
                   </div>
                   <div className="username">
                     <h3>{contact.username}</h3>
@@ -105,8 +106,19 @@ const Container = styled.div`
       align-items: center;
       transition: 0.5s ease-in-out;
       .avatar {
+        position: relative;
         img {
           height: 3rem;
+        }
+        .online-indicator {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 10px;
+          height: 10px;
+          background-color: green;
+          border-radius: 50%;
+          border: 2px solid ${(props) => props.theme.panelBg};
         }
       }
       .username {

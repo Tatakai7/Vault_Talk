@@ -32,23 +32,26 @@ export default function Chat() {
   const [themeMode, setThemeMode] = useState(
     () => localStorage.getItem("themeMode") || "dark"
   );
-  useEffect(async () => {
-    const user = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
-    if (!user || user === "null") {
-      navigate("/login");
-    } else {
-      try {
-        const parsed = JSON.parse(user);
-        if (parsed && parsed._id) {
-          setCurrentUser(parsed);
-        } else {
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+      if (!user || user === "null") {
+        navigate("/login");
+      } else {
+        try {
+          const parsed = JSON.parse(user);
+          if (parsed && parsed._id) {
+            setCurrentUser(parsed);
+          } else {
+            navigate("/login");
+          }
+        } catch {
           navigate("/login");
         }
-      } catch {
-        navigate("/login");
       }
-    }
-  }, []);
+    };
+    fetchData();
+  }, [navigate]);
   useEffect(() => {
     if (currentUser && currentUser._id) {
       socket.current = io(host);
@@ -56,16 +59,39 @@ export default function Chat() {
     }
   }, [currentUser]);
 
-  useEffect(async () => {
-    if (currentUser) {
-      if (currentUser.isAvatarImageSet) {
-        const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-        setContacts(data.data);
-      } else {
-        navigate("/setAvatar");
+  useEffect(() => {
+    const fetchData = async () => {
+      if (currentUser) {
+        if (currentUser.isAvatarImageSet) {
+          const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+          setContacts(data.data);
+        } else {
+          navigate("/setAvatar");
+        }
       }
+    };
+    fetchData();
+  }, [currentUser, navigate]);
+
+  useEffect(() => {
+    if (socket.current) {
+      socket.current.on("user-status-update", (updatedUser) => {
+        setContacts(prevContacts =>
+          prevContacts.map(contact =>
+            contact._id === updatedUser.userId
+              ? { ...contact, status: updatedUser.status }
+              : contact
+          )
+        );
+      });
     }
-  }, [currentUser]);
+
+    return () => {
+      if (socket.current) {
+        socket.current.off("user-status-update");
+      }
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };

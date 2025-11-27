@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const User = require("./models/userModel");
 const authRoutes = require("./routes/auth");
 const messageRoutes = require("./routes/messages");
 const app = express();
@@ -42,14 +43,25 @@ const io = socket(server, {
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
   global.chatSocket = socket;
-  socket.on("add-user", (userId) => {
+  socket.on("add-user", async (userId) => {
     onlineUsers.set(userId, socket.id);
+    await User.findByIdAndUpdate(userId, { status: "online" });
+    io.emit("user-status-update", { userId, status: "online" });
   });
 
   socket.on("send-msg", (data) => {
     const sendUserSocket = onlineUsers.get(data.to);
     if (sendUserSocket) {
       socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+    }
+  });
+
+  socket.on("disconnect", async () => {
+    const userId = [...onlineUsers.entries()].find(([key, value]) => value === socket.id)?.[0];
+    if (userId) {
+      onlineUsers.delete(userId);
+      await User.findByIdAndUpdate(userId, { status: "offline" });
+      io.emit("user-status-update", { userId, status: "offline" });
     }
   });
 });

@@ -10,7 +10,6 @@ import multiavatar from "@multiavatar/multiavatar/esm";
 export default function SetAvatar() {
   const navigate = useNavigate();
   const [avatars, setAvatars] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
 
   const toastOptions = {
@@ -38,7 +37,6 @@ export default function SetAvatar() {
         data.push(encoded);
       }
       setAvatars(data);
-      setIsLoading(false);
     };
 
     generateAvatars();
