@@ -3,6 +3,10 @@
 > A modern, playful, and lightning-fast chat app built with the **MERN Stack** and **Socket.IO** for seamless real-time communication.  
 > Connect, chat, and share moments instantly — all in one sleek platform. ⚡
 
+![Login_Form](./public/images/LoginForm.png)
+![Register_Form](./public/images/RegisterForm.png)
+![Chat_Page](./public/images/ChatPage.png)
+
 ---
 
 ## 🚀 Tech Stack
@@ -29,8 +33,8 @@
 Clone the repository and set up both **client** and **server**:
 
 ```bash
-git clone https://github.com/yourusername/chat-application.git
-cd chat-application
+git clone https://github.com/Tatakai7/Chat_Application_Web_App.git
+cd Chat_Application_Web_App
 ```
 
 ---
@@ -40,7 +44,7 @@ cd chat-application
 1. Navigate to the server directory:
 
 ```bash
-cd server
+cd Chat_Application_Web_App/server/
 ```
 
 2. Install dependencies:
@@ -70,7 +74,7 @@ npm run start
 1. Navigate to the client directory:
 
 ```bash
-cd client
+cd Chat_Application_Web_App/public/
 ```
 
 2. Install frontend dependencies:
@@ -105,4 +109,4 @@ Developers can freely fork, experiment, and submit pull requests to enhance the 
 ---
 
 📜 License
-This project is open-source and available under the MIT License.
+This project is open-source and available under the GPL-3.0 License.
