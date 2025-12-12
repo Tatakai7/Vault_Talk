@@ -11,7 +11,7 @@
 
 ## 🚀 Tech Stack
 
-**Frontend:** React, Tailwind CSS  
+**Frontend:** React  
 **Backend:** Node.js, Express.js, MongoDB, Socket.IO  
 **Additional Tools:** bcrypt, dotenv, cors, mongoose, nodemon
 
