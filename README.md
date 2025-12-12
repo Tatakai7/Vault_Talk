@@ -3,9 +3,9 @@
 > A modern, playful, and lightning-fast chat app built with the **MERN Stack** and **Socket.IO** for seamless real-time communication.  
 > Connect, chat, and share moments instantly — all in one sleek platform. ⚡
 
-![Login_Form](./public/images/LoginForm.png)
-![Register_Form](./public/images/RegisterForm.png)
-![Chat_Page](./public/images/ChatPage.png)
+![Login_Form](./public/public/images/LoginForm.png)
+![Register_Form](./public/public/images/RegisterForm.png)
+![Chat_Page](./public/public/images/ChatPage.png)
 
 ---
 
