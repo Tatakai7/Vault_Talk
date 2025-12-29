@@ -9,7 +9,7 @@ const app = express();
 // CORS configuration - update with your Netlify domain
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production'
-    ? ['https://your-netlify-app.netlify.app'] // Replace with your actual Netlify URL
+    ? ['https://vault-talk.netlify.app'] // Replace with your actual Netlify URL
     : ['http://localhost:3000'],
   credentials: true,
 };
