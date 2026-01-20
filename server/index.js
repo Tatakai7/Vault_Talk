@@ -11,11 +11,9 @@ if (!global.onlineUsers) {
   global.onlineUsers = new Map();
 }
 
-// CORS configuration - update with your Netlify domain
-// DEBUG NOTE: temporarily allow all origins to diagnose client 'Network Error'.
-// Remove or restrict this before deploying to production.
+// CORS configuration - allow requests from deployed frontend
 const corsOptions = {
-  origin: 'https://vault-talk-chat.netlify.app',
+  origin: process.env.CORS_ORIGIN || 'https://vault-talk-chat.netlify.app',
   credentials: true,
 };
 
