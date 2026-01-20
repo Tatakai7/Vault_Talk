@@ -1,0 +1,19 @@
+services:
+  - type: web_service
+    name: chat-app-server
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    region: oregon
+    envVars:
+      - key: MONGO_URL
+        value: "<your-mongo-connection-string>"
+      - key: PORT
+        value: "5000"
+    healthCheckPath: "/ping"
+    buildCommand: ""
+    startCommand: "npm start"
+# Notes:
+# - Replace <your-mongo-connection-string> with your MongoDB URI (or set on Render UI).
+# - You can also create the service in the Render dashboard and set these environment variables there.
+# - This manifest is optional but helps reproduce the service via the Render `render.yaml` workflow.
