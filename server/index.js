@@ -11,9 +11,9 @@ if (!global.onlineUsers) {
   global.onlineUsers = new Map();
 }
 
-// CORS configuration - allow requests from deployed frontend
+// CORS configuration - allow requests from deployed frontend and local development
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || 'https://vault-talk-chat.netlify.app',
+  origin: process.env.CORS_ORIGIN || (process.env.NODE_ENV === 'production' ? 'https://vault-talk-chat.netlify.app' : 'http://localhost:3000'),
   credentials: true,
 };
 
